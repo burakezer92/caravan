@@ -1,0 +1,31 @@
+.headerBox {
+  width: 1440px;
+  height: 72px;
+  background-color: var(--gray-100);
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--gray-200);
+}
+
+.appLogo {
+  width: 136px;
+  height: 16px;
+  margin-left: 64px;
+}
+
+.linkBox {
+  display: flex;
+  margin: auto;
+  gap: 32px;
+}
+
+.link {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--dark);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--red-600);
+}

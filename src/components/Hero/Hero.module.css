@@ -1,0 +1,28 @@
+.hero {
+  width: 1440px;
+  height: 696px;
+  transform: scaleX(-1);
+  object-fit: cover;
+  object-position: center 70%;
+}
+
+.heroTitle {
+  position: absolute;
+  top: 40%;
+  left: 5%;
+}
+
+.heroBox {
+  position: relative;
+  color: var(--gray-100);
+}
+
+.title {
+  font-weight: 600;
+  font-size: 48px;
+}
+
+.subTitle {
+  font-weight: 600;
+  font-size: 24px;
+}
