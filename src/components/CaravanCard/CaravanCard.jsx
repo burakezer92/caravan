@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import css from "./CaravanCard.module.css";
 import bathroomLogo from "../../assets/bathroom.svg";
 import kitchenLogo from "../../assets/cup-hot.svg";
@@ -15,6 +16,7 @@ import { Link } from "react-router-dom";
 
 const CaravanCard = ({ camper }) => {
   const {
+    id,
     name,
     price,
     rating,
@@ -35,6 +37,27 @@ const CaravanCard = ({ camper }) => {
     refrigerator,
   } = camper;
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setIsFavorite(favorites.includes(id));
+  }, [id]);
+
+  const toggleFavorite = () => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    let updated;
+
+    if (favorites.includes(id)) {
+      updated = favorites.filter((favId) => favId !== id);
+    } else {
+      updated = [...favorites, id];
+    }
+
+    localStorage.setItem("favorites", JSON.stringify(updated));
+    setIsFavorite(updated.includes(id));
+  };
+
   const shortDescription =
     description.length > 70 ? description.slice(0, 70) + "..." : description;
 
@@ -53,14 +76,20 @@ const CaravanCard = ({ camper }) => {
               </span>
 
               <span className={css.location}>
-                <img src={locationLogo} /> {location}
+                <img src={locationLogo} alt="" /> {location}
               </span>
             </div>
           </div>
 
           <div className={css.priceBox}>
             <h2 className={css.price}>€{price.toFixed(2)}</h2>
-            <span className={css.heart}>♡</span>
+            <span
+              className={css.heart}
+              onClick={toggleFavorite}
+              style={{ cursor: "pointer", color: isFavorite ? "red" : "black" }}
+            >
+              {isFavorite ? "♥" : "♡"}
+            </span>
           </div>
         </div>
 
@@ -68,65 +97,65 @@ const CaravanCard = ({ camper }) => {
 
         <div className={css.features}>
           <div className={css.badge}>
-            <img src={diagram} /> {transmission}
+            <img src={diagram} alt="" /> {transmission}
           </div>
           <div className={css.badge}>
-            <img src={fuelLogo} /> {engine}
+            <img src={fuelLogo} alt="" /> {engine}
           </div>
           {TV && (
             <div className={css.badge}>
-              <img src={TVLogo} /> TV
+              <img src={TVLogo} alt="" /> TV
             </div>
           )}
           {kitchen && (
             <div className={css.badge}>
-              <img src={kitchenLogo} /> Kitchen
+              <img src={kitchenLogo} alt="" /> Kitchen
             </div>
           )}
           {AC && (
             <div className={css.badge}>
-              <img src={windLogo} /> AC
+              <img src={windLogo} alt="" /> AC
             </div>
           )}
           {microwave && (
             <div className={css.badge}>
-              <img src={microwaveLogo} />
+              <img src={microwaveLogo} alt="" />
               Microwave
             </div>
           )}
           {water && (
             <div className={css.badge}>
-              <img src={waterLogo} />
+              <img src={waterLogo} alt="" />
               Water
             </div>
           )}
           {gas && (
             <div className={css.badge}>
-              <img src={gasLogo} />
+              <img src={gasLogo} alt="" />
               Gas
             </div>
           )}
           {bathroom && (
             <div className={css.badge}>
-              <img src={bathroomLogo} />
+              <img src={bathroomLogo} alt="" />
               Bathroom
             </div>
           )}
           {radio && (
             <div className={css.badge}>
-              <img src={radioLogo} />
+              <img src={radioLogo} alt="" />
               Radio
             </div>
           )}
           {refrigerator && (
             <div className={css.badge}>
-              <img src={refrigeratorLogo} />
+              <img src={refrigeratorLogo} alt="" />
               Refrigerator
             </div>
           )}
         </div>
 
-        <Link to={`/catalog/details/${camper.id}`} className={css.button}>
+        <Link to={`/catalog/details/${id}`} className={css.button}>
           Show more
         </Link>
       </div>
