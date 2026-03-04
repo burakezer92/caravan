@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./FilterPanel.module.css";
-import tv from "../../assets/tv.svg";
+import tv from "../../assets/TV.svg";
 import wind from "../../assets/wind.svg";
 import bathroom from "../../assets/bathroom.svg";
 import diagram from "../../assets/diagram.svg";
